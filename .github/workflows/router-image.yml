@@ -1,4 +1,4 @@
-name: Create and publish a new wifi router image
+name: OpenWRT Image Build
 
 on:
   push:
@@ -16,7 +16,7 @@ env:
   IMAGE_NAME: "openwrt-image"
 
 jobs:
-  Create-and-publish-a-router-image:
+  OpenWRT-Image-Build:
     runs-on: ubuntu-latest
     permissions:
       contents: read

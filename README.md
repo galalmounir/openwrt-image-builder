@@ -1,3 +1,6 @@
+[![OpenWRT Image Build](https://github.com/galalmounir/openwrt-image-builder/actions/workflows/router-image.yml/badge.svg?branch=main)](https://github.com/galalmounir/openwrt-image-builder/actions/workflows/router-image.yml)
+[![License: MIT](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/galalmounir/openwrt-image-builder/blob/main/LICENSE)
+
 # OpenWRT Image Builder using a Docker container
 A docker container to build a OpenWRT firmware image. Useful for automation and CI/CD pipelines.
 
