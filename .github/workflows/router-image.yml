@@ -1,0 +1,47 @@
+name: Create and publish a new wifi router image
+
+on:
+  push:
+    branches: ['release', 'main']
+    paths:
+      - Dockerfile
+      - devices/**
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - Dockerfile
+      - devices/**
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: "openwrt-image"
+
+jobs:
+  Create-and-publish-a-router-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      with:
+        images: ${{ env.REGISTRY }}/galalmounir/${{ env.IMAGE_NAME }}
+        
+    - name: Build image
+      uses: docker/build-push-action@v3.2.0
+      with:
+        push: false
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        outputs: type=local,dest=image
+        build-args: SHOULD_ADD_HAASMESH=1
+
+    - name: Archive Built router image
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ env.IMAGE_NAME }}
+        path: image
